@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Functional Programming Reference</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f8fafc;
+            --sidebar-bg: #ffffff;
+            --card-bg: #ffffff;
+            --primary: #3b82f6;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --code-bg: #1e1e1e;
+            --code-text: #d4d4d4;
+            --accent: #10b981;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            width: 260px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            padding: 2rem 1rem;
+            display: none; /* Hidden on mobile */
+        }
+
+        nav h2 { font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+        
+        nav ul { list-style: none; padding: 0; }
+        nav li { margin-bottom: 0.5rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+        nav a:hover { background: #eff6ff; color: var(--primary); }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header { margin-bottom: 3rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem; }
+        header h1 { font-size: 2.25rem; margin-bottom: 0.5rem; color: #0f172a; }
+        header p { color: var(--text-muted); font-size: 1.1rem; }
+
+        .section-intro { margin-bottom: 1.5rem; }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            padding: 1.25rem 1.5rem;
+            background: #f1f5f9;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-header h3 { margin: 0; font-size: 1.25rem; display: flex; align-items: center; gap: 10px; }
+        .card-header .badge {
+            font-size: 0.7rem;
+            background: var(--primary);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            text-transform: uppercase;
+        }
+
+        pre {
+            margin: 0;
+            padding: 1.5rem;
+            background: var(--code-bg);
+            color: var(--code-text);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+
+        code .comment { color: #6a9955; }
+        code .keyword { color: #569cd6; }
+        code .string { color: #ce9178; }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-box {
+            background: #ecfdf5;
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        /* Responsive adjustments */
+        @media (min-width: 1024px) {
+            nav { display: block; }
+        }
+
+        @media (max-width: 640px) {
+            main { padding: 1rem; }
+            header h1 { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h2>Methods</h2>
+        <ul>
+            <li><a href="#map">1. Map</a></li>
+            <li><a href="#filter">2. Filter</a></li>
+            <li><a href="#reduce">3. Reduce</a></li>
+            <li><a href="#find">4. Find</a></li>
+            <li><a href="#some">5. Some</a></li>
+            <li><a href="#every">6. Every</a></li>
+            <li><a href="#composition">Composition</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <header>
+            <h1>JavaScript Functional Programming</h1>
+            <p>A quick reference for common array methods and functional patterns.</p>
+        </header>
+
+        <section id="basics">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><h3>Check Even/Odd</h3></div>
+                    <pre><code><span class="keyword">const</span> checkEven = n => n % 2 === 0 ? <span class="string">"even"</span> : <span class="string">"odd"</span>;</code></pre>
+                </div>
+                <div class="card">
+                    <div class="card-header"><h3>Count Odds</h3></div>
+                    <pre><code><span class="keyword">const</span> numOfOdds = (num) => Math.floor((num + 1) / 2);</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="map">
+            <div class="section-intro">
+                <h2>1. MAP</h2>
+                <p>Transforms each element in an array using a function. Returns a new array of the same length.</p>
+            </div>
+            <div class="card">
+                <pre><code><span class="comment">// Double numbers</span>
+<span class="keyword">const</span> doubled = numbers.map(n => n * 2);
+
+<span class="comment">// Extract properties</span>
+<span class="keyword">const</span> names = users.map(user => user.name);</code></pre>
+            </div>
+        </section>
+
+        <section id="filter">
+            <div class="section-intro">
+                <h2>2. FILTER</h2>
+                <p>Returns a new array containing only the elements that pass the specified test.</p>
+            </div>
+            <div class="card">
+                <pre><code><span class="comment">// Get even numbers</span>
+<span class="keyword">const</span> evens = numbers.filter(n => n % 2 === 0);
+
+<span class="comment">// Filter by property</span>
+<span class="keyword">const</span> engineers = users.filter(u => u.dept === <span class="string">'Engineering'</span>);</code></pre>
+            </div>
+        </section>
+
+        <section id="reduce">
+            <div class="section-intro">
+                <h2>3. REDUCE</h2>
+                <p>Reduces an array to a single value (number, object, or new array) by applying an accumulator function.</p>
+            </div>
+            <div class="card">
+                <pre><code><span class="comment">// Sum all numbers</span>
+<span class="keyword">const</span> sum = numbers.reduce((acc, curr) => acc + curr, 0);
+
+<span class="comment">// Group by category</span>
+<span class="keyword">const</span> depts = users.reduce((acc, user) => {
+  (acc[user.dept] = acc[user.dept] || []).push(user.name);
+  <span class="keyword">return</span> acc;
+}, {});</code></pre>
+            </div>
+        </section>
+
+        <section id="composition">
+            <div class="section-intro">
+                <h2>Chaining & Composition</h2>
+                <p>Combine multiple methods to perform complex data transformations in a readable way.</p>
+            </div>
+            <div class="card">
+                <div class="card-header"><h3>The Pipeline Pattern</h3></div>
+                <pre><code><span class="keyword">const</span> pipeline = (...fns) => val => fns.reduce((v, f) => f(v), val);
+
+<span class="keyword">const</span> result = pipeline(addTen, multiplyByTwo, subtract5)(10); 
+<span class="comment">// Result: 35</span></code></pre>
+            </div>
+        </section>
+
+        <div class="info-box">
+            <strong>Pro Tip:</strong> Methods like <code>find</code>, <code>some</code>, and <code>every</code> short-circuit, meaning they stop iterating as soon as the condition is met!
+        </div>
+    </main>
+
+</body>
+</html>
